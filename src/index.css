@@ -1,0 +1,15 @@
+:root {
+  /* Основные цвета */
+  --aside-bg: #2c3e50;
+  --aside-text: #f8f9fa;
+  --aside-border: #34495e;
+  --aside-icon: #adb5bd;
+  
+  /* Акцентные цвета */
+  --aside-hover: #34495e;
+  --aside-active: #3d5166;
+  --aside-accent: #4dabf7;
+  
+  /* Тень */
+  --aside-shadow: rgba(0, 0, 0, 0.3);
+}

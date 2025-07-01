@@ -1,0 +1,1 @@
+export const URLPersons = 'https://694548aefb424dc0.mokky.dev/persons'
