@@ -1,0 +1,10 @@
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: end;
+  height: 40px;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}

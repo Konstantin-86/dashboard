@@ -1,0 +1,17 @@
+.list {
+  padding-top: 50px;
+  margin-left: 290px;
+  transition: all 0.2s;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.listMove {
+  padding-top: 50px;
+  margin-left: 100px;
+  transition: all 0.2s;
+  transition-delay: 0.5s;
+}

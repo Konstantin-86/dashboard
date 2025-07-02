@@ -1,15 +1,64 @@
 :root {
-  /* Основные цвета */
-  --aside-bg: #2c3e50;
+  --transition: 0.2s;
+
   --aside-text: #f8f9fa;
-  --aside-border: #34495e;
-  --aside-icon: #adb5bd;
-  
-  /* Акцентные цвета */
   --aside-hover: #34495e;
-  --aside-active: #3d5166;
   --aside-accent: #4dabf7;
-  
-  /* Тень */
-  --aside-shadow: rgba(0, 0, 0, 0.3);
+
+  --bg-color: #ffffff;
+  --bg-secondary: #2c3e50;
+  --text-color: #212529;
+  --text-secondary: #495057;
+  --success-color: #40c057;
+  --error-color: #fa5252;
+  --warning-color: #fcc419;
+}
+
+[data-theme='dark'] {
+  /* Темная тема */
+  --bg-color: #1a1a1a;
+  --bg-secondary: #242424;
+  --text-color: #f8f9fa;
+  --text-secondary: #adb5bd;
+  --primary-color: #4dabf7;
+  --primary-hover: #339af0;
+  --border-color: #343a40;
+  --card-bg: #242424;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --input-bg: #2d2d2d;
+  --input-border: #495057;
+  --success-color: #51cf66;
+  --error-color: #ff6b6b;
+  --warning-color: #ffd43b;
+}
+
+/* Плавные переходы для темы */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+/* Дополнительные элементы */
+button,
+input,
+select,
+textarea {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-color);
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.card {
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 4px var(--card-shadow);
+  transition:
+    background-color var(--transition),
+    box-shadow var(--transition);
 }

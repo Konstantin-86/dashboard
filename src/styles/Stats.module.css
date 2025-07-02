@@ -1,0 +1,6 @@
+.inner {
+  background-color: var(--aside-accent);
+  width: 450px;
+  height: 70px;
+  border-radius: 7px;
+}
