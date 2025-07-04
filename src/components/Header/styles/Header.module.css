@@ -4,7 +4,8 @@
   right: 0;
   display: flex;
   justify-content: end;
+  align-items: center;
+  gap: 14px;
   height: 40px;
-  background-color: var(--bg-secondary);
   color: var(--text-secondary);
 }

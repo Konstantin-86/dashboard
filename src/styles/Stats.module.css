@@ -1,6 +1,8 @@
 .inner {
-  background-color: var(--aside-accent);
-  width: 450px;
-  height: 70px;
-  border-radius: 7px;
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 50px;
 }

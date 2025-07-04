@@ -1,5 +1,5 @@
 import AsideMenu from './components/AsideMenu';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import SkeletonMain from './components/SkeletonMain';
 import Stats from './components/Stats';
 

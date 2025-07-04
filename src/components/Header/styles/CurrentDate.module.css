@@ -1,0 +1,6 @@
+.date {
+  background-color: var(--bg-secondary);
+  color: var(--aside-text);
+  padding: 7px 14px;
+  border-radius: 7px;
+}
