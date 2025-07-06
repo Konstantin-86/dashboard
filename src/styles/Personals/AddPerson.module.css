@@ -1,0 +1,104 @@
+.inner {
+    display: inline-flex;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 7px;
+    border-radius: 7px;
+    transition: all 0.2s ease;
+}
+
+.inner:hover {
+    border: 1px solid var(--accent);
+}
+
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #00000077;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.form {
+    position: relative;
+    max-width: 550px;
+    width: 100%;
+    padding: 14px;
+    padding-top: 40px;
+    background-color: #ffffff;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.uploadLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px;
+    border-radius: 7px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.uploadLabel:hover {
+    border: 1px solid var(--accent);
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.uploadButton {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 7px;
+    border-radius: 7px;
+    transition: all 0.2s ease;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--accent);
+    border-radius: 50%;
+    animation: spinnerRun 1s linear infinite;
+
+}
+
+.closeButton {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+.title {
+    text-align: center;
+}
+
+@keyframes spinnerRun {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}

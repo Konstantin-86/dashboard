@@ -7,6 +7,6 @@ interface IActiveComponent {
 }
 
 export const useActiveComponent = create<IActiveComponent>((set) => ({
-  activeWidget: 'asideMenu',
+  activeWidget: 'mainTable',
   setActiveWidget: (widget) => set({ activeWidget: widget }),
 }));

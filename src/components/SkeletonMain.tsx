@@ -5,25 +5,25 @@ import { useActiveComponent } from '../store/activeComponent/activeComponent';
 import { useEffect, useState } from 'react';
 
 const SkeletonMain = () => {
-  const [listMove, setListMove] = useState(false);
+  /*   const [listMove, setListMove] = useState(false); */
   const skelArr = Array(7).fill(null);
-  const { activeWidget } = useActiveComponent();
+  /* const { activeWidget } = useActiveComponent();
   useEffect(() => {
     if (activeWidget === 'mainTable') {
       setListMove(true);
     } else {
       setListMove(false);
     }
-  }, [activeWidget]);
+  }, [activeWidget]); */
 
   return (
-    <ul className={`${styles.list} ${listMove ? styles.listMove : ''}`}>
+    <ul className={styles.list}>
       <button></button>
       {skelArr.map((_, index) => {
         return (
           <li className={styles.item} key={index}>
-            <Skeleton circle height={50} width={50} baseColor="var(--text-secondary)" />
-            <Skeleton height={30} width={250} baseColor="var(--text-secondary)" />
+            <Skeleton circle height={50} width={50} baseColor="var(--text)" />
+            <Skeleton height={30} width={250} baseColor="var(--text)" />
           </li>
         );
       })}

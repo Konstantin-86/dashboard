@@ -1,6 +1,6 @@
 import { useCurrentPVZ } from '../../store/currentPVZ/currentPVZ';
 import type { TCurrentPVZ } from '../../types/types';
-import styles from './styles/CurrentPVZ.module.css';
+import styles from '../../styles/Header/CurrentPVZ.module.css';
 
 const CurrentPVZ = () => {
   const { currentPVZ, setCurrentPVZ } = useCurrentPVZ();

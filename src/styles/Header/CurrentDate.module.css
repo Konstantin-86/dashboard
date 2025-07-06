@@ -1,0 +1,5 @@
+.date {
+  color: var(--text);
+  padding: 7px 14px;
+  border-radius: 7px;
+}

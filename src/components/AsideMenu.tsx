@@ -5,7 +5,7 @@ import styles from '../styles/AsideMenu.module.css';
 
 const menuItems = [
   { icon: <FaHome />, text: 'Главная' },
-  { icon: <FaUser />, text: 'Профиль' },
+  { icon: <FaUser />, text: 'Персонал' },
   { icon: <FaCog />, text: 'Настройки' },
   { icon: <FaEnvelope />, text: 'Сообщения' },
 ];
@@ -17,11 +17,6 @@ const AsideMenu = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    if (isOpen === true) {
-      setActiveWidget('mainTable');
-    } else {
-      setActiveWidget('asideMenu');
-    }
     if (!showItemList) {
       setTimeout(() => {
         setShowItemList(!showItemList);
@@ -30,6 +25,26 @@ const AsideMenu = () => {
       setShowItemList(!showItemList);
     }
   };
+  const handleItemClick = (widget: string) => {
+    switch (widget) {
+      case 'Главная':
+        setActiveWidget('mainTable');
+        break;
+      case 'Персонал':
+        setActiveWidget('personals');
+        break;
+      case 'Настройки':
+        setActiveWidget('settings');
+        break;
+      case 'Сообщения':
+        setActiveWidget('messages');
+        break;
+      default:
+        break;
+    }
+    setIsOpen(false);
+    setShowItemList(false);
+  }
 
   return (
     <aside className={`${styles.aside} ${isOpen ? styles.open : styles.closed}`}>
@@ -41,7 +56,7 @@ const AsideMenu = () => {
       </button>
       <ul className={styles.menuList}>
         {menuItems.map((item, index) => (
-          <li key={index} className={styles.menuItem}>
+          <li key={index} className={styles.menuItem} onClick={() => handleItemClick(item.text)}>
             <span className={styles.icon}>{item.icon}</span>
             {showItemList && <span className={styles.text}>{item.text}</span>}
           </li>

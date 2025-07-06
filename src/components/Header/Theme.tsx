@@ -5,7 +5,7 @@ const Theme = () => {
   const { toggleTheme } = useTheme();
   return (
     <button onClick={toggleTheme}>
-      <FaLightbulb style={{ color: 'var(--text-color)' }} size={30} />
+      <FaLightbulb style={{ color: 'var(--text)' }} size={30} />
     </button>
   );
 };
