@@ -5,14 +5,18 @@ import MyInput from '../UI/MyInput';
 import type { Person } from '../../types/types';
 import type { FormEvent } from 'react';
 import MyButton from '../UI/MyButton';
+import Notification from '../UI/Notification';
 
 import styles from '../../styles/Personals/AddPerson.module.css';
 
 interface FormData extends Omit<Person, 'id' | 'created_at' | 'photourl'> {
     photofile?: File | null;
 }
+interface Props {
+    setPersons: React.Dispatch<React.SetStateAction<Person[]>>
+}
 
-const AddPerson = () => {
+const AddPerson: React.FC<Props> = ({ setPersons }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [formData, setFormData] = useState<FormData>({
         fullname: '',
@@ -26,12 +30,12 @@ const AddPerson = () => {
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState(false);
+    const [badRequest, setBadRequest] = useState(false);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-
-            // Создаем preview
             const reader = new FileReader();
             reader.onloadend = () => {
                 setPreviewUrl(reader.result as string);
@@ -83,9 +87,10 @@ const AddPerson = () => {
                 photourl
             };
 
-            const { error: insertError } = await supabase
+            const { data, error: insertError } = await supabase
                 .from('persons')
-                .insert(personData);
+                .insert(personData)
+                .select();
 
             if (insertError) throw insertError;
 
@@ -100,12 +105,14 @@ const AddPerson = () => {
             });
             setPreviewUrl(null);
             setIsOpen(false);
-
-            alert('Сотрудник успешно добавлен!');
+            setPersons((prevPersons) => [...prevPersons, data[0] as Person]);
+            setSuccess(true);
 
         } catch (err) {
-            console.error('Error:', err);
-            setError(err.message || 'Произошла ошибка при добавлении сотрудника');
+            if (err instanceof Error) {
+                setBadRequest(true);
+            }
+
         } finally {
             setUploading(false);
         }
@@ -113,8 +120,8 @@ const AddPerson = () => {
 
     return (
         <div className={styles.wrapper}>
-
-
+            {success && <Notification message="Сотрудник успешно добавлен" type="success" />}
+            {badRequest && <Notification message="Произошла ошибка при добавлении сотрудника" type="error" />}
             <button
                 className={styles.addButton}
                 onClick={() => setIsOpen(!isOpen)}

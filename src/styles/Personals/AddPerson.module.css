@@ -15,14 +15,16 @@
 .modal {
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100dvh;
     background-color: #00000077;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     top: 0;
     left: 0;
+    padding-block: 14px;
     z-index: 100;
+    overflow-y: auto;
 }
 
 .form {
@@ -39,7 +41,10 @@
 }
 
 .uploadLabel {
-    display: inline-flex;
+    max-width: 160px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
     align-items: center;
     gap: 7px;
     padding: 7px;
@@ -90,6 +95,14 @@
 
 .title {
     text-align: center;
+}
+
+.previewImage {
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 7px;
+    object-fit: contain;
+    align-self: center;
 }
 
 @keyframes spinnerRun {

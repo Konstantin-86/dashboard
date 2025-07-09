@@ -36,6 +36,8 @@ export default function Auth() {
     setShowLogOut(false);
     if (error) console.error('Ошибка выхода:', error);
   };
+  console.log(isLoggedIn);
+
 
   return (
     <>

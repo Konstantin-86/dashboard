@@ -1,19 +1,14 @@
 import { useState, useEffect } from 'react';
-import { FaTimesCircle, FaUserCircle } from 'react-icons/fa';
-import { FaTrashAlt } from "react-icons/fa";
-import { FaPencilAlt } from "react-icons/fa";
+import { supabase } from '../lib/supabaseClient';
+import { FaTimesCircle, FaUserCircle, FaTrashAlt, FaPencilAlt } from 'react-icons/fa';
+
 import EditPerson from './EditPerson';
 import DeletePerson from './DeletePerson';
 import AddPerson from './AddPerson';
-import { supabase } from '../lib/supabaseClient';
-
 
 import type { Person } from '../../types/types';
 
 import styles from '../../styles/Personals/Person.module.css';
-import ImageUploader from './ImageUploader';
-
-
 
 const Person = () => {
 
@@ -23,7 +18,7 @@ const Person = () => {
 
     const [persons, setPersons] = useState<Person[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>("null");
 
     useEffect(() => {
         const fetchPersons = async () => {
@@ -38,7 +33,13 @@ const Person = () => {
 
                 setPersons(data as Person[]);
             } catch (err) {
-                setError(err.message);
+                if (err instanceof Error) {
+                    console.error('Error:', err);
+                    setError(err.message || 'Произошла ошибка при добавлении сотрудника');
+                } else {
+                    console.error('Unknown error:', err);
+                    setError('Произошла неизвестная ошибка при добавлении сотрудника');
+                }
             } finally {
                 setLoading(false);
             }
@@ -51,10 +52,8 @@ const Person = () => {
 
     return (
         <div className={styles.container}>
+
             <h1>Сотрудники</h1>
-            <ImageUploader />
-
-
             <div className={styles.personnelList}>
                 {persons.map(employee => (
                     <div
@@ -63,7 +62,7 @@ const Person = () => {
                         onClick={() => setSelectedEmployee(employee)}
                     >
                         {employee.photourl ?
-                            <img src={employee.photourl} alt={employee.fullname} className={styles.employeePhoto} /> :
+                            <img width={80} height={80} loading='lazy' src={employee.photourl} alt={employee.fullname} className={styles.employeePhoto} /> :
                             <FaUserCircle size={40} color='#ccc' className={styles.employeeIcon} />}
                         <div className={styles.employeeInfo}>
                             <h3>{employee.fullname}</h3>
@@ -71,8 +70,7 @@ const Person = () => {
                     </div>
                 ))}
             </div>
-            <AddPerson />
-
+            <AddPerson setPersons={setPersons} />
             {selectedEmployee && (
                 <div className={styles.employeeModal} onClick={() => setSelectedEmployee(null)}>
                     <div className={styles.modalContent} onClick={e => e.stopPropagation()}>

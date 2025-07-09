@@ -1,7 +1,9 @@
-import React from 'react'
+import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import MyButton from '../UI/MyButton'
 import { FaTimesCircle } from 'react-icons/fa'
+
+import MyButton from '../UI/MyButton'
+import Notification from '../UI/Notification'
 
 import type { Person } from '../../types/types'
 import styles from '../../styles/Personals/DeletePerson.module.css'
@@ -15,28 +17,32 @@ interface DeletePersonProps {
 }
 
 const DeletePerson: React.FC<DeletePersonProps> = ({ selectedEmployee, setSelectedEmployee, setPersons, setIsDeleteOpen }) => {
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
     const deletePerson = async () => {
         try {
-            // Удаляем запись из Supabase
             const { error } = await supabase
-                .from('persons') // Замените на имя вашей таблицы
+                .from('persons')
                 .delete()
-                .eq('id', selectedEmployee.id) // Удаляем по ID
+                .eq('id', selectedEmployee.id)
 
             if (error) throw error
 
-            // Обновляем локальное состояние только если удаление в Supabase прошло успешно
             setPersons(prevData => prevData.filter(item => item.id !== selectedEmployee.id));
             setSelectedEmployee(null);
             setIsDeleteOpen(false);
+            setSuccess(true);
 
         } catch (error) {
             console.error('Error deleting person:', error)
-            // Здесь можно добавить обработку ошибки, например, показать уведомление пользователю
+            setError('Произошла ошибка при удалении сотрудника');
         }
     }
     return (
         <div className={styles.inner}>
+            {success && <Notification message="Сотрудник успешно удален" type="success" />}
+            {error && <Notification message="Произошла ошибка при удалении сотрудника" type="error" />}
 
             <div className={styles.deletePerson}>
                 <button className={styles.closeButton} onClick={() => setIsDeleteOpen(false)}><FaTimesCircle /></button>
