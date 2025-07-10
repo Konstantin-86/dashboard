@@ -1,9 +1,10 @@
 .container {
-    position: relative;
+  position: relative;
+  cursor: pointer;
 }
 
 .button {
-    position: absolute;
-    bottom: -50px;
-    left: -50px;
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
 }

@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import { useActiveComponent } from '../store/activeComponent/activeComponent';
-import { FaHome, FaUser, FaCog, FaEnvelope, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import styles from '../styles/AsideMenu.module.css';
+import { useActiveComponent } from '../../store/activeComponent/activeComponent';
+import {
+  FaHome,
+  FaEnvelope,
+  FaArrowLeft,
+  FaArrowRight,
+  FaUsers,
+  FaClipboardList,
+} from 'react-icons/fa';
+import styles from '../../styles/Aside/AsideMenu.module.css';
 
 const menuItems = [
   { icon: <FaHome />, text: 'Главная' },
-  { icon: <FaUser />, text: 'Персонал' },
-  { icon: <FaCog />, text: 'Настройки' },
+  { icon: <FaUsers />, text: 'Персонал' },
+  { icon: <FaClipboardList />, text: 'Шаблоны' },
   { icon: <FaEnvelope />, text: 'Сообщения' },
 ];
 
@@ -33,8 +40,8 @@ const AsideMenu = () => {
       case 'Персонал':
         setActiveWidget('personals');
         break;
-      case 'Настройки':
-        setActiveWidget('settings');
+      case 'Шаблоны':
+        setActiveWidget('templates');
         break;
       case 'Сообщения':
         setActiveWidget('messages');
@@ -44,7 +51,7 @@ const AsideMenu = () => {
     }
     setIsOpen(false);
     setShowItemList(false);
-  }
+  };
 
   return (
     <aside className={`${styles.aside} ${isOpen ? styles.open : styles.closed}`}>

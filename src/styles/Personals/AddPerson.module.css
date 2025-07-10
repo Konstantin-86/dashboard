@@ -1,117 +1,113 @@
-.inner {
-    display: inline-flex;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid transparent;
-    padding: 7px;
-    border-radius: 7px;
-    transition: all 0.2s ease;
+.addButton {
+  position: absolute;
+  top: 57px;
+  right: 14px;
+  border-radius: 7px;
+  padding: 3px;
+  border: 1px solid transparent;
+  transition: all var(--transition);
 }
-
-.inner:hover {
-    border: 1px solid var(--accent);
+.addButton:hover {
+  border: 1px solid var(--accent);
 }
-
 .modal {
-    position: fixed;
-    width: 100%;
-    height: 100dvh;
-    background-color: #00000077;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    top: 0;
-    left: 0;
-    padding-block: 14px;
-    z-index: 100;
-    overflow-y: auto;
+  position: fixed;
+  width: 100%;
+  height: 100dvh;
+  background-color: #00000077;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  top: 0;
+  left: 0;
+  padding-block: 14px;
+  z-index: 101;
+  overflow-y: auto;
 }
 
 .form {
-    position: relative;
-    max-width: 550px;
-    width: 100%;
-    padding: 14px;
-    padding-top: 40px;
-    background-color: #ffffff;
-    border-radius: 7px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  position: relative;
+  max-width: 550px;
+  width: 100%;
+  padding: 14px;
+  padding-top: 40px;
+  background-color: #ffffff;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .uploadLabel {
-    max-width: 160px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px;
-    border-radius: 7px;
-    border: 1px solid #ddd;
-    cursor: pointer;
+  max-width: 160px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px;
+  border-radius: 7px;
+  border: 1px solid #ddd;
+  cursor: pointer;
 }
 
 .uploadLabel:hover {
-    border: 1px solid var(--accent);
+  border: 1px solid var(--accent);
 }
 
 .hiddenInput {
-    display: none;
+  display: none;
 }
 
 .uploadButton {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    padding: 7px;
-    border-radius: 7px;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 7px;
+  border-radius: 7px;
+  transition: all 0.2s ease;
 }
 
 .spinner {
-    width: 20px;
-    height: 20px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid var(--accent);
-    border-radius: 50%;
-    animation: spinnerRun 1s linear infinite;
-
+  width: 20px;
+  height: 20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--accent);
+  border-radius: 50%;
+  animation: spinnerRun 1s linear infinite;
 }
 
 .closeButton {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #666;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
 }
 
 .title {
-    text-align: center;
+  text-align: center;
 }
 
 .previewImage {
-    width: 200px;
-    margin: 0 auto;
-    border-radius: 7px;
-    object-fit: contain;
-    align-self: center;
+  width: 200px;
+  margin: 0 auto;
+  border-radius: 7px;
+  object-fit: contain;
+  align-self: center;
 }
 
 @keyframes spinnerRun {
-    from {
-        transform: rotate(0deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    to {
-        transform: rotate(360deg);
-    }
-
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -1,7 +1,7 @@
-import StatsCircle from './StatsCircle';
-import StatsTable from './StatsTable';
+import StatsCircle from '../Main/StatsCircle';
+import StatsTable from '../Main/StatsTable';
 
-import styles from '../styles/Stats.module.css';
+import styles from '../../styles/Main/Stats.module.css';
 
 const Stats = () => {
   return (

@@ -1,38 +1,37 @@
 .inner {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #00000077;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #00000077;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .form {
-    position: relative;
-    max-width: 350px;
-    width: 100%;
-    padding: 14px;
-    padding-top: 40px;
-    background-color: #ffffff;
-    border-radius: 7px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  position: relative;
+  max-width: 350px;
+  width: 100%;
+  padding: 14px;
+  padding-top: 40px;
+  background-color: #ffffff;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .close {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-    cursor: pointer;
-
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
 }
 
 .error {
-    min-height: 25px;
-    color: red;
+  min-height: 25px;
+  color: red;
 }

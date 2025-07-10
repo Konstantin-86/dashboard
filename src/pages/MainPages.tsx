@@ -1,16 +1,15 @@
+import Stats from '../components/Main/Stats';
+import SkeletonMain from '../components/Main/SkeletonMain';
 
-import Stats from '../components/Stats'
-import SkeletonMain from '../components/SkeletonMain'
-
-import styles from '../styles/Pages/MainPages.module.css'
+import styles from '../styles/Pages/MainPages.module.css';
 
 const MainPages = () => {
-    return (
-        <div className={styles.container}>
-            <SkeletonMain />
-            <Stats />
-        </div>
-    )
-}
+  return (
+    <div className={styles.container}>
+      <SkeletonMain />
+      <Stats />
+    </div>
+  );
+};
 
-export default MainPages
+export default MainPages;

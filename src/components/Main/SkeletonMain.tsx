@@ -1,21 +1,10 @@
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import styles from '../styles/SkeletonMain.module.css';
-import { useActiveComponent } from '../store/activeComponent/activeComponent';
-import { useEffect, useState } from 'react';
+
+import styles from '../../styles/Main/SkeletonMain.module.css';
 
 const SkeletonMain = () => {
-  /*   const [listMove, setListMove] = useState(false); */
   const skelArr = Array(7).fill(null);
-  /* const { activeWidget } = useActiveComponent();
-  useEffect(() => {
-    if (activeWidget === 'mainTable') {
-      setListMove(true);
-    } else {
-      setListMove(false);
-    }
-  }, [activeWidget]); */
-
   return (
     <ul className={styles.list}>
       <button></button>

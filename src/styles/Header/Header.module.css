@@ -8,4 +8,5 @@
   gap: 14px;
   height: 40px;
   color: var(--text-secondary);
+  z-index: 101;
 }
