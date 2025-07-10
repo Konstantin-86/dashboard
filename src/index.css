@@ -7,13 +7,14 @@
   --accent: #4dabf7;
   --error: #e74c3c;
 
+  --color-skeleton: #d5d6d6;
+
   --aside-bg: #2c3e50;
   --aside-text: #f8f9fa;
   --aside-hover: #34495e;
   --aside-accent: #4dabf7;
   --color-delete: #e74c3c;
   --color-edit: #f1c40f;
-
 }
 
 [data-theme='dark'] {

@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { FaTimesCircle, FaUserCircle, FaPencilAlt } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
 
-import EditPerson from './EditPerson';
 import AddPerson from './AddPerson';
+import PersonSkeleton from './PersonSkeleton';
+import PersonList from './PersonList';
 
 import type { Person } from '../../types/types';
 
 import styles from '../../styles/Personals/Person.module.css';
-import PersonSkeleton from './PersonSkeleton';
-import PersonList from './PersonList';
 
 const Person = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<Person | null>(null);
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
-
   const [persons, setPersons] = useState<Person[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>('null');

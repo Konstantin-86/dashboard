@@ -20,3 +20,199 @@
   overflow-y: auto;
   position: relative;
 }
+
+.container {
+  position: relative;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-left: 90px;
+  padding-top: 50px;
+}
+
+.personnelList {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.personnelCard {
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.personnelCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.employeePhoto {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  margin-right: 15px;
+}
+
+.employeeIcon {
+  margin-right: 14px;
+}
+
+.employeeInfo h3 {
+  margin: 0 0 5px 0;
+}
+
+.employeeInfo p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.employeeModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.employeeDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detailPhoto {
+  width: 200px;
+  border-radius: 7px;
+  object-fit: contain;
+  align-self: center;
+}
+
+.detailInfo h2 {
+  margin-top: 0;
+}
+
+.skillsSection {
+  margin-top: 15px;
+}
+
+.skillsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.skillTag {
+  background-color: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.colorBar {
+  display: flex;
+  justify-content: center;
+}
+
+.colorBox {
+  width: 50%;
+  height: 14px;
+  border-radius: 7px;
+}
+
+.edit {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  padding: 7px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.edit:hover,
+.delete:hover {
+  border: 1px solid #4dabf7;
+}
+
+.infoText {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text);
+  background-color: var(--accent);
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.infoTextHide {
+  position: fixed;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text);
+  background-color: var(--accent);
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+@media (min-width: 768px) {
+  .employeeDetails {
+    flex-direction: row;
+  }
+
+  .detailPhoto {
+    align-self: flex-start;
+  }
+}
