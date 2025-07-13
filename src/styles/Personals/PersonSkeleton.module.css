@@ -2,9 +2,11 @@
   max-width: 1200px;
   width: 100%;
   display: flex;
+  justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
 }
+
 .item {
   display: flex;
   align-items: center;

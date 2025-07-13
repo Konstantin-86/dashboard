@@ -7,9 +7,11 @@
   border: 1px solid transparent;
   transition: all var(--transition);
 }
+
 .addButton:hover {
   border: 1px solid var(--accent);
 }
+
 .modal {
   position: fixed;
   width: 100%;
@@ -110,4 +112,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@media (max-width: 500px) {
+  .addButton {
+    top: 44px;
+    right: 17px;
+
+  }
+
+  .addButton svg {
+    width: 30px;
+    height: 30px;
+  }
+
 }

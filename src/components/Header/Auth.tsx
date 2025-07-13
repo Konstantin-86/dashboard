@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { useAuthStore } from '../../store/authStore/authStore';
 import MyButton from '../UI/MyButton';
-import { FaUser, FaUserShield } from 'react-icons/fa';
 import SingIn from './SingIn';
 
+
+import { FaUser, FaUserShield } from 'react-icons/fa';
 import styles from '../../styles/Header/Auth.module.css';
 
 export default function Auth() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuthStore();
   const [showSignIn, setShowSignIn] = useState<boolean>(false);
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
 
@@ -59,7 +61,7 @@ export default function Auth() {
             Выйти
           </MyButton>
         )}
-        {showSignIn && <SingIn setShowSignIn={setShowSignIn} setIsLoggedIn={setIsLoggedIn} />}
+        {showSignIn && <SingIn setShowSignIn={setShowSignIn} />}
       </div>
     </>
   );

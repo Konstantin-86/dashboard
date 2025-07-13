@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { FaUserCircle } from 'react-icons/fa';
 
 import AddPerson from './AddPerson';
 import PersonSkeleton from './PersonSkeleton';
@@ -11,7 +10,7 @@ import type { Person } from '../../types/types';
 import styles from '../../styles/Personals/Person.module.css';
 
 const Person = () => {
-  const [selectedEmployee, setSelectedEmployee] = useState<Person | null>(null);
+
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [persons, setPersons] = useState<Person[]>([]);
   const [loading, setLoading] = useState(true);
@@ -45,49 +44,21 @@ const Person = () => {
   }, []);
 
   const closeAll = () => {
-    setSelectedEmployee(null);
+    /* setSelectedEmployee(null); */
     setIsEditOpen(false);
   };
 
   return (
     <div className={styles.container}>
-      <h1>Сотрудники</h1>
-      <ul className={styles.personnelList}>
-        {persons.map((employee) => (
-          <li
-            key={employee.id}
-            className={styles.personnelCard}
-            onClick={() => setSelectedEmployee(employee)}
-          >
-            {employee.photourl ? (
-              <img
-                width={80}
-                height={80}
-                loading="lazy"
-                src={employee.photourl}
-                alt={employee.fullname}
-                className={styles.employeePhoto}
-              />
-            ) : (
-              <FaUserCircle size={40} color="#ccc" className={styles.employeeIcon} />
-            )}
-            <div className={styles.employeeInfo}>
-              <h3>{employee.fullname}</h3>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <AddPerson setPersons={setPersons} />
-      {selectedEmployee ? (
+      <h1 className={styles.title}>Сотрудники</h1>
+      {loading ?
+        <PersonSkeleton /> :
         <PersonList
-          selectedEmployee={selectedEmployee}
-          setSelectedEmployee={setSelectedEmployee}
+          persons={persons}
           setPersons={setPersons}
-          closeAll={closeAll}
         />
-      ) : (
-        <PersonSkeleton />
-      )}
+      }
+      <AddPerson setPersons={setPersons} />
     </div>
   );
 };

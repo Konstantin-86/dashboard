@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { useAuthStore } from '../../store/authStore/authStore';
 import MyButton from '../UI/MyButton';
 import MyInput from '../UI/MyInput';
-import { FaTimesCircle } from 'react-icons/fa';
 
+import { FaTimesCircle } from 'react-icons/fa';
 import styles from '../../styles/Header/SingIn.module.css';
 
 interface SingInProps {
   setShowSignIn: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SingIn: React.FC<SingInProps> = ({ setShowSignIn, setIsLoggedIn }) => {
+const SingIn: React.FC<SingInProps> = ({ setShowSignIn }) => {
+  const { setIsLoggedIn } = useAuthStore();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);

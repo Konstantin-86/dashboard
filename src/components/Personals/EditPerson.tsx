@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import type { ChangeEvent } from 'react';
-import MyInput from '../UI/MyInput';
-import type { Person } from '../../types/types';
-import MyButton from '../UI/MyButton';
-import styles from '../../styles/Personals/EditPerson.module.css';
 import { supabase } from '../lib/supabaseClient';
-import { FaTrashAlt } from 'react-icons/fa';
+import { useAuthStore } from '../../store/authStore/authStore';
+import MyInput from '../UI/MyInput';
+import MyButton from '../UI/MyButton';
 import DeletePerson from './DeletePerson';
+import Notification from '../UI/Notification';
+
+import type { ChangeEvent } from 'react';
+import type { Person } from '../../types/types';
+
+import { FaTrashAlt } from 'react-icons/fa';
+import styles from '../../styles/Personals/EditPerson.module.css';
 
 interface EditPersonProps {
   selectedEmployee: Person;
@@ -33,6 +37,7 @@ const EditPerson: React.FC<EditPersonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+  const { isLoggedIn } = useAuthStore();
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -46,7 +51,6 @@ const EditPerson: React.FC<EditPersonProps> = ({
       formattedValue += rest.length > 6 ? `-${rest.slice(6, 8)}` : '';
       formattedValue += rest.length > 8 ? `-${rest.slice(8, 10)}` : '';
     }
-
     setFormData((prev) => ({ ...prev, phone: formattedValue }));
   };
 
@@ -56,6 +60,10 @@ const EditPerson: React.FC<EditPersonProps> = ({
   };
 
   const saveChanges = async () => {
+    if (!isLoggedIn) {
+      setError('Вы не авторизованы. Пожалуйста, авторизуйтесь.');
+      return;
+    };
     if (!formData.name.trim()) {
       setError('Имя обязательно для заполнения');
       return;
@@ -76,7 +84,6 @@ const EditPerson: React.FC<EditPersonProps> = ({
       };
       console.log(updatedEmployee);
 
-      // Обновляем в Supabase
       const { error: supabaseError } = await supabase
         .from('persons')
         .update({
@@ -105,8 +112,10 @@ const EditPerson: React.FC<EditPersonProps> = ({
     }
   };
 
+
   return (
     <div className={styles.container}>
+      {error && <Notification message={error} />}
       {selectedEmployee && (
         <div className={styles.content}>
           <h3 className={styles.title}>Редактирование сотрудника</h3>
@@ -115,6 +124,7 @@ const EditPerson: React.FC<EditPersonProps> = ({
 
           <MyInput
             name="name"
+            label="ФИО"
             fullWidth
             placeholder="ФИО"
             value={formData.name}
@@ -123,6 +133,7 @@ const EditPerson: React.FC<EditPersonProps> = ({
 
           <MyInput
             name="phone"
+            label="Телефон"
             fullWidth
             placeholder="Телефон"
             type="tel"

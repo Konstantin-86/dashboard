@@ -10,6 +10,7 @@
   align-items: center;
   z-index: 1000;
 }
+
 .modalContent {
   background-color: white;
   padding: 30px;
@@ -32,9 +33,9 @@
 
 .personnelList {
   display: flex;
+  justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
-  margin-top: 20px;
 }
 
 .personnelCard {
@@ -215,4 +216,17 @@
   .detailPhoto {
     align-self: flex-start;
   }
+}
+
+@media (max-width: 768px) {
+  .personnelCard {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .personnelCard img {
+    width: 40px;
+    height: 40px;
+  }
+
 }

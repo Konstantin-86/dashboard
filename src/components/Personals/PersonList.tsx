@@ -3,80 +3,63 @@ import { useState } from 'react';
 import type { Person } from '../../types/types';
 
 import styles from '../../styles/Personals/PersonList.module.css';
-import { FaPencilAlt, FaTimesCircle, FaUserCircle } from 'react-icons/fa';
-import EditPerson from './EditPerson';
+import { FaUserCircle } from 'react-icons/fa';
+import Employee from './Employee';
 
 interface IProps {
-  selectedEmployee: Person;
-  setSelectedEmployee: React.Dispatch<React.SetStateAction<Person | null>>;
-  setPersons: React.Dispatch<React.SetStateAction<Person[]>>;
-  closeAll: () => void;
+  persons: Person[]
+  setPersons: React.Dispatch<React.SetStateAction<Person[]>>
 }
 
-const PersonList: React.FC<IProps> = ({
-  selectedEmployee,
-  setSelectedEmployee,
-  setPersons,
-  closeAll,
-}) => {
-  const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+const PersonList: React.FC<IProps> = ({ persons, setPersons, }) => {
+
+  const [selectedEmployee, setSelectedEmployee] = useState<Person | null>(null);
+  const closeAll = () => {
+    setSelectedEmployee(null);
+  };
+
   return (
-    <div className={styles.employeeModal} onClick={() => setSelectedEmployee(null)}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={closeAll}>
-          <FaTimesCircle />
-        </button>
-
-        <div className={styles.employeeDetails}>
-          {!isEditOpen && (
-            <div className={styles.edit} onClick={() => setIsEditOpen(true)}>
-              <FaPencilAlt color="var(--color-edit)" size={20} />
-            </div>
-          )}
-
-          <div className={styles.leftSide}>
-            {selectedEmployee.photourl ? (
+    <>
+      <ul className={styles.personnelList}>
+        {persons.map((employee) => (
+          <li
+            key={employee.id}
+            className={styles.personnelCard}
+            onClick={() => setSelectedEmployee(employee)}
+          >
+            {employee.photourl ? (
               <img
-                src={selectedEmployee.photourl}
-                alt={selectedEmployee.fullname}
-                className={styles.detailPhoto}
+                width={80}
+                height={80}
+                loading="lazy"
+                src={employee.photourl}
+                alt={employee.fullname}
+                className={styles.employeePhoto}
               />
             ) : (
-              <FaUserCircle size={100} />
+              <FaUserCircle size={40} color="#ccc" className={styles.employeeIcon} />
             )}
-            <div className={styles.colorBar}>
-              <div
-                className={styles.colorBox}
-                style={{ backgroundColor: selectedEmployee.color }}
-              ></div>
+            <div className={styles.employeeInfo}>
+              <h3>{employee.fullname}</h3>
             </div>
-          </div>
-          <div className={styles.detailInfo}>
-            <h2>{selectedEmployee.fullname}</h2>
-            <p>
-              <strong>Телефон:</strong> {selectedEmployee.phone}
-            </p>
-            <p>
-              <strong>Telegram:</strong> {selectedEmployee.telegram}
-            </p>
-            <p>
-              <strong>Дата рождения:</strong> {selectedEmployee.birthdate}
-            </p>
-            <p>
-              <strong>Дата приема на работу:</strong> {selectedEmployee.hiredate}
-            </p>
-          </div>
-        </div>
-        {isEditOpen && (
-          <EditPerson
+          </li>
+        ))}
+      </ul>
+      {
+        selectedEmployee && (
+          <Employee
             selectedEmployee={selectedEmployee}
             setSelectedEmployee={setSelectedEmployee}
+            persons={persons}
             setPersons={setPersons}
-            setIsEditOpen={setIsEditOpen}
+            closeAll={closeAll}
           />
-        )}
-      </div>
-    </div>
+        )
+
+      }
+
+
+    </>
   );
 };
 

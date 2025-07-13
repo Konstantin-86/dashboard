@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import {
-  FaUserPlus,
-  FaSpinner,
-  FaImage,
-  FaCloudUploadAlt,
-  FaUpload,
-  FaTimesCircle,
-} from 'react-icons/fa';
 import { supabase } from '../lib/supabaseClient';
+import { useAuthStore } from '../../store/authStore/authStore';
+
 import MyInput from '../UI/MyInput';
-import type { Person } from '../../types/types';
-import type { FormEvent } from 'react';
 import MyButton from '../UI/MyButton';
 import Notification from '../UI/Notification';
 
+import type { Person } from '../../types/types';
+import type { FormEvent } from 'react';
+
+import { FaUserPlus, FaUpload, FaTimesCircle, } from 'react-icons/fa';
 import styles from '../../styles/Personals/AddPerson.module.css';
 
 interface FormData extends Omit<Person, 'id' | 'created_at' | 'photourl'> {
@@ -39,8 +35,10 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [badRequest, setBadRequest] = useState(false);
+  const { isLoggedIn } = useAuthStore();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const reader = new FileReader();
@@ -54,11 +52,18 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
   };
 
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    if (!isLoggedIn) {
+      setError('Вы не авторизованы. Пожалуйста, авторизуйтесь.');
+      return;
+    }
     e.preventDefault();
     setUploading(true);
     setError(null);
@@ -125,6 +130,7 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
 
   return (
     <div className={styles.wrapper}>
+      {error && <Notification message={error} type="error" />}
       {success && <Notification message="Сотрудник успешно добавлен" type="success" />}
       {badRequest && (
         <Notification message="Произошла ошибка при добавлении сотрудника" type="error" />
@@ -157,12 +163,13 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
             />
 
             <MyInput
-              name="phone"
               type="tel"
+              name="phone"
               placeholder="Телефон"
               value={formData.phone}
               onChange={handleInputChange}
               required
+
             />
 
             <MyInput
@@ -181,7 +188,6 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
               value={formData.birthdate}
               onChange={handleInputChange}
               label="Дата рождения"
-              required
             />
 
             <MyInput

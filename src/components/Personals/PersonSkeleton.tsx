@@ -7,7 +7,7 @@ const PersonSkeleton = () => {
       {skelArr.map((_, index) => {
         return (
           <li className={styles.item} key={index}>
-            <Skeleton circle height={80} width={80} baseColor="var(--color-skeleton)" />
+            <Skeleton circle height={70} width={70} baseColor="var(--color-skeleton)" />
             <Skeleton height={40} width={200} baseColor="var(--color-skeleton)" />
           </li>
         );

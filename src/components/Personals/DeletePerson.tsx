@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { FaTimesCircle } from 'react-icons/fa';
+import { useAuthStore } from '../../store/authStore/authStore';
 
 import MyButton from '../UI/MyButton';
 import Notification from '../UI/Notification';
 
 import type { Person } from '../../types/types';
+
+import { FaTimesCircle } from 'react-icons/fa';
 import styles from '../../styles/Personals/DeletePerson.module.css';
 
 interface DeletePersonProps {
@@ -23,8 +25,13 @@ const DeletePerson: React.FC<DeletePersonProps> = ({
 }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { isLoggedIn } = useAuthStore();
 
   const deletePerson = async () => {
+    if (!isLoggedIn) {
+      setError('Вы не авторизованы. Пожалуйста, авторизуйтесь.');
+      return;
+    }
     try {
       const { error } = await supabase.from('persons').delete().eq('id', selectedEmployee.id);
 
@@ -42,7 +49,7 @@ const DeletePerson: React.FC<DeletePersonProps> = ({
   return (
     <div className={styles.inner}>
       {success && <Notification message="Сотрудник успешно удален" type="success" />}
-      {error && <Notification message="Произошла ошибка при удалении сотрудника" type="error" />}
+      {error && <Notification message={error} type="error" />}
 
       <div className={styles.deletePerson}>
         <button className={styles.closeButton} onClick={() => setIsDeleteOpen(false)}>
