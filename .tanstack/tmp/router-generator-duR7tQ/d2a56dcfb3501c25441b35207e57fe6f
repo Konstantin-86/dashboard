@@ -1,0 +1,10 @@
+import { createRoute, createFileRoute } from '@tanstack/react-router'
+import { Route } from '../__root' // Обратите внимание на путь!
+import MainPages from '../../pages/MainPages'
+
+// Создаем маршрут и экспортируем его как Route
+export const Route = createRoute('/__root/_index')({
+  getParentRoute: () => Route, // Теперь это работает
+  path: '/',
+  component: MainPages,
+})

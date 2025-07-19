@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useActiveComponent } from '../../store/activeComponent/activeComponent';
+import { Link } from '@tanstack/react-router';
 import {
   FaHome,
   FaEnvelope,
@@ -8,19 +8,19 @@ import {
   FaUsers,
   FaClipboardList,
 } from 'react-icons/fa';
+
 import styles from '../../styles/Aside/AsideMenu.module.css';
 
 const menuItems = [
-  { icon: <FaHome />, text: 'Главная' },
-  { icon: <FaUsers />, text: 'Персонал' },
-  { icon: <FaClipboardList />, text: 'Шаблоны' },
-  { icon: <FaEnvelope />, text: 'Сообщения' },
+  { icon: <FaHome />, path: '/', text: 'Главная' },
+  { icon: <FaUsers />, path: 'personals', text: 'Персонал' },
+  { icon: <FaClipboardList />, path: 'templates', text: 'Шаблоны' },
+  { icon: <FaEnvelope />, path: 'messages', text: 'Сообщения' },
 ];
 
 const AsideMenu = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [showItemList, setShowItemList] = useState(true);
-  const { setActiveWidget } = useActiveComponent();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -31,26 +31,6 @@ const AsideMenu = () => {
     } else {
       setShowItemList(!showItemList);
     }
-  };
-  const handleItemClick = (widget: string) => {
-    switch (widget) {
-      case 'Главная':
-        setActiveWidget('mainTable');
-        break;
-      case 'Персонал':
-        setActiveWidget('personals');
-        break;
-      case 'Шаблоны':
-        setActiveWidget('templates');
-        break;
-      case 'Сообщения':
-        setActiveWidget('messages');
-        break;
-      default:
-        break;
-    }
-    setIsOpen(false);
-    setShowItemList(false);
   };
 
   return (
@@ -63,10 +43,17 @@ const AsideMenu = () => {
       </button>
       <ul className={styles.menuList}>
         {menuItems.map((item, index) => (
-          <li key={index} className={styles.menuItem} onClick={() => handleItemClick(item.text)}>
+          <Link
+            key={index}
+            className={styles.menuItem}
+            to={item.path}
+            activeProps={{
+              className: `${styles.menuItem} ${styles.activeMenuItem}`
+            }}
+          >
             <span className={styles.icon}>{item.icon}</span>
             {showItemList && <span className={styles.text}>{item.text}</span>}
-          </li>
+          </Link>
         ))}
       </ul>
     </aside>

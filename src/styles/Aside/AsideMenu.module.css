@@ -53,6 +53,11 @@
   transition: background-color 0.2s;
 }
 
+.activeMenuItem {
+  background-color: var(--aside-hover);
+  color: var(--accent);
+}
+
 .menuItem:hover {
   background-color: var(--aside-hover);
 }
@@ -88,10 +93,9 @@
     height: 100%;
   }
 
-  .toggleButtonClose {
-    right: auto;
-    left: 20px;
-    top: -17px;
+  .toggleButtonClose,
+  .toggleButton {
+    display: none;
   }
 
   .menuItem {

@@ -22,6 +22,9 @@ export type Person = {
   photourl: string | null;
   created_at: string;
 };
+export interface FormData extends Omit<Person, 'id' | 'created_at' | 'photourl'> {
+  photofile?: File | null;
+}
 
 export type TTime =
   | '09:00'

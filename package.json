@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.3",
+    "@tanstack/react-router": "^1.128.4",
+    "@tanstack/react-router-devtools": "^1.128.4",
     "@types/node": "^24.0.10",
     "axios": "^1.10.0",
     "react": "^19.1.0",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@tanstack/router-plugin": "^1.128.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",

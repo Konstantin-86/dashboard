@@ -8,13 +8,13 @@ import styles from '../../styles/Personals/Employee.module.css';
 interface IProps {
     selectedEmployee: Person;
     setSelectedEmployee: React.Dispatch<React.SetStateAction<Person | null>>;
-    persons: Person[];
-    setPersons: React.Dispatch<React.SetStateAction<Person[]>>;
     closeAll: () => void;
 }
 
-const Employee: React.FC<IProps> = ({ selectedEmployee, setSelectedEmployee, persons, setPersons, closeAll }) => {
+const Employee: React.FC<IProps> = ({ selectedEmployee, setSelectedEmployee, closeAll }) => {
+
     const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+
     return (
         <div className={styles.employeeModal} onClick={() => setSelectedEmployee(null)}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -49,10 +49,28 @@ const Employee: React.FC<IProps> = ({ selectedEmployee, setSelectedEmployee, per
                     <div className={styles.detailInfo}>
                         <h2>{selectedEmployee.fullname}</h2>
                         <p>
-                            <strong>Телефон:</strong> {selectedEmployee.phone}
+                            <strong>Телефон:</strong>
+                            {selectedEmployee.phone ? (
+                                <a href={`tel:${selectedEmployee.phone.replace(/[^\d+]/g, '')}`}>
+                                    {selectedEmployee.phone}
+                                </a>
+                            ) : (
+                                'не указан'
+                            )}
                         </p>
                         <p>
-                            <strong>Telegram:</strong> {selectedEmployee.telegram}
+                            <strong>Telegram:</strong>
+                            {selectedEmployee.telegram ? (
+                                <a
+                                    href={`https://t.me/${selectedEmployee.telegram.replace(/^@/, '')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {selectedEmployee.telegram}
+                                </a>
+                            ) : (
+                                'не указан'
+                            )}
                         </p>
                         <p>
                             <strong>Дата приема на работу:</strong> {selectedEmployee.hiredate}
@@ -63,7 +81,6 @@ const Employee: React.FC<IProps> = ({ selectedEmployee, setSelectedEmployee, per
                     <EditPerson
                         selectedEmployee={selectedEmployee}
                         setSelectedEmployee={setSelectedEmployee}
-                        setPersons={setPersons}
                         setIsEditOpen={setIsEditOpen}
                     />
                 )}

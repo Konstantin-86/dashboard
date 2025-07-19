@@ -1,8 +1,9 @@
 import CurrentPVZ from './CurrentPVZ';
 import Theme from './Theme';
 import Auth from './Auth';
-import styles from '../../styles/Header/Header.module.css';
 import CurrentDate from './CurrentDate';
+
+import styles from '../../styles/Header/Header.module.css';
 
 const Header = () => {
   return (

@@ -9,12 +9,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const MyInput = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, className = '', fullWidth = false, ...props }, ref) => {
+  ({ label, error, className = '', fullWidth = false, value, ...props }, ref) => {
     return (
       <div className={`${styles.container} ${fullWidth ? styles.fullWidth : ''}`}>
         {label && <label className={styles.label}>{label}</label>}
         <input
           ref={ref}
+          value={value ?? ""}
           className={`${styles.input} ${error ? styles.error : ''} ${className}`}
           {...props}
         />

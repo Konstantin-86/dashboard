@@ -5,18 +5,16 @@ import type { Person } from '../../types/types';
 import styles from '../../styles/Personals/PersonList.module.css';
 import { FaUserCircle } from 'react-icons/fa';
 import Employee from './Employee';
+import { usePersonStore } from '../../store/persons/personStore';
 
-interface IProps {
-  persons: Person[]
-  setPersons: React.Dispatch<React.SetStateAction<Person[]>>
-}
 
-const PersonList: React.FC<IProps> = ({ persons, setPersons, }) => {
+const PersonList = () => {
 
   const [selectedEmployee, setSelectedEmployee] = useState<Person | null>(null);
   const closeAll = () => {
     setSelectedEmployee(null);
   };
+  const { persons } = usePersonStore();
 
   return (
     <>
@@ -50,8 +48,6 @@ const PersonList: React.FC<IProps> = ({ persons, setPersons, }) => {
           <Employee
             selectedEmployee={selectedEmployee}
             setSelectedEmployee={setSelectedEmployee}
-            persons={persons}
-            setPersons={setPersons}
             closeAll={closeAll}
           />
         )

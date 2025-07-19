@@ -11,15 +11,13 @@ import type { FormEvent } from 'react';
 
 import { FaUserPlus, FaUpload, FaTimesCircle, } from 'react-icons/fa';
 import styles from '../../styles/Personals/AddPerson.module.css';
+import { usePersonStore } from '../../store/persons/personStore';
 
 interface FormData extends Omit<Person, 'id' | 'created_at' | 'photourl'> {
   photofile?: File | null;
 }
-interface Props {
-  setPersons: React.Dispatch<React.SetStateAction<Person[]>>;
-}
 
-const AddPerson: React.FC<Props> = ({ setPersons }) => {
+const AddPerson = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     fullname: '',
@@ -36,9 +34,9 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
   const [success, setSuccess] = useState(false);
   const [badRequest, setBadRequest] = useState(false);
   const { isLoggedIn } = useAuthStore();
+  const { addPerson } = usePersonStore();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const reader = new FileReader();
@@ -52,7 +50,6 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
@@ -106,6 +103,9 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
 
       if (insertError) throw insertError;
 
+      const newPerson = data[0] as Person;
+      addPerson(newPerson);
+
       setFormData({
         fullname: '',
         phone: '',
@@ -117,7 +117,7 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
       });
       setPreviewUrl(null);
       setIsOpen(false);
-      setPersons((prevPersons) => [...prevPersons, data[0] as Person]);
+
       setSuccess(true);
     } catch (err) {
       if (err instanceof Error) {
@@ -127,6 +127,76 @@ const AddPerson: React.FC<Props> = ({ setPersons }) => {
       setUploading(false);
     }
   };
+
+  /*   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      if (!isLoggedIn) {
+        setError('Вы не авторизованы. Пожалуйста, авторизуйтесь.');
+        return;
+      }
+      e.preventDefault();
+      setUploading(true);
+      setError(null);
+  
+      try {
+        let photourl = null;
+  
+        if (formData.photofile) {
+          const fileExt = formData.photofile.name.split('.').pop();
+          const fileName = `${crypto.randomUUID()}.${fileExt}`;
+          const filePath = `user_uploads/${fileName}`;
+  
+          const { error: uploadError } = await supabase.storage
+            .from('user_uploads')
+            .upload(filePath, formData.photofile);
+  
+          if (uploadError) throw uploadError;
+  
+          const {
+            data: { publicUrl },
+          } = supabase.storage.from('user_uploads').getPublicUrl(filePath);
+  
+          photourl = publicUrl;
+        }
+  
+        const personData = {
+          fullname: formData.fullname,
+          phone: formData.phone,
+          telegram: formData.telegram,
+          birthdate: formData.birthdate ? new Date(formData.birthdate).toISOString() : null,
+          hiredate: formData.hiredate ? new Date(formData.hiredate).toISOString() : null,
+          color: formData.color,
+          photourl,
+        };
+  
+        const { data, error: insertError } = await supabase
+          .from('persons')
+          .insert(personData)
+          .select();
+  
+        if (insertError) throw insertError;
+  
+        await addPerson(data[0] as Person);
+  
+        setFormData({
+          fullname: '',
+          phone: '',
+          telegram: '',
+          birthdate: '',
+          hiredate: '',
+          color: '#3b82f6',
+          photofile: null,
+        });
+        setPreviewUrl(null);
+        setIsOpen(false);
+        setSuccess(true);
+      } catch (err) {
+        if (err instanceof Error) {
+          setBadRequest(true);
+        }
+      } finally {
+        setUploading(false);
+      }
+    }; */
 
   return (
     <div className={styles.wrapper}>

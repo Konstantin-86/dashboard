@@ -8,7 +8,11 @@ const Templates = () => {
     <div className={styles.inner}>
       <ul className={styles.list}>
         {templates.map((elem) => (
-          <li key={elem.id}>{elem.namePerson}</li>
+          <li key={elem.id}>
+            <p>{elem.namePerson}</p>
+            <p>с {elem.startTime} до {elem.endTime}</p>
+            <p>{elem.currentRate} р.</p>
+          </li>
         ))}
       </ul>
     </div>

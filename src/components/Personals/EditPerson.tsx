@@ -11,18 +11,17 @@ import type { Person } from '../../types/types';
 
 import { FaTrashAlt } from 'react-icons/fa';
 import styles from '../../styles/Personals/EditPerson.module.css';
+import { usePersonStore } from '../../store/persons/personStore';
 
 interface EditPersonProps {
   selectedEmployee: Person;
   setSelectedEmployee: React.Dispatch<React.SetStateAction<Person | null>>;
-  setPersons: React.Dispatch<React.SetStateAction<Person[]>>;
   setIsEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const EditPerson: React.FC<EditPersonProps> = ({
   selectedEmployee,
   setSelectedEmployee,
-  setPersons,
   setIsEditOpen,
 }) => {
   const [formData, setFormData] = useState({
@@ -33,11 +32,13 @@ const EditPerson: React.FC<EditPersonProps> = ({
     birthDate: selectedEmployee.birthdate,
     hireDate: selectedEmployee.hiredate,
     color: selectedEmployee.color,
+    photoUrl: selectedEmployee.photourl || '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const { isLoggedIn } = useAuthStore();
+  const { updatePerson } = usePersonStore();
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -81,8 +82,8 @@ const EditPerson: React.FC<EditPersonProps> = ({
         birthdate: formData.birthDate,
         hiredate: formData.hireDate,
         color: formData.color,
+        photourl: formData.photoUrl,
       };
-      console.log(updatedEmployee);
 
       const { error: supabaseError } = await supabase
         .from('persons')
@@ -93,15 +94,13 @@ const EditPerson: React.FC<EditPersonProps> = ({
           birthdate: formData.birthDate,
           hiredate: formData.hireDate,
           color: formData.color,
+          photourl: formData.photoUrl,
         })
         .eq('id', selectedEmployee.id);
 
       if (supabaseError) throw supabaseError;
 
-      // Обновляем локальное состояние
-      setPersons((prev) =>
-        prev.map((item) => (item.id === selectedEmployee.id ? updatedEmployee : item)),
-      );
+      /* updatePerson(updatedEmployee); */
       setSelectedEmployee(updatedEmployee);
       setIsEditOpen(false);
     } catch (err) {
@@ -112,7 +111,6 @@ const EditPerson: React.FC<EditPersonProps> = ({
     }
   };
 
-
   return (
     <div className={styles.container}>
       {error && <Notification message={error} />}
@@ -121,6 +119,28 @@ const EditPerson: React.FC<EditPersonProps> = ({
           <h3 className={styles.title}>Редактирование сотрудника</h3>
 
           {error && <div className={styles.error}>{error}</div>}
+
+          {formData.photoUrl && (
+            <div className={styles.photoPreview}>
+              <img
+                src={formData.photoUrl}
+                alt="Employee"
+                className={styles.photoImage}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            </div>
+          )}
+
+          <MyInput
+            name="photoUrl"
+            label="URL фотографии"
+            fullWidth
+            placeholder="https://example.com/photo.jpg"
+            value={formData.photoUrl}
+            onChange={handleInputChange}
+          />
 
           <MyInput
             name="name"
@@ -196,7 +216,6 @@ const EditPerson: React.FC<EditPersonProps> = ({
         <DeletePerson
           selectedEmployee={selectedEmployee}
           setSelectedEmployee={setSelectedEmployee}
-          setPersons={setPersons}
           setIsDeleteOpen={setIsDeleteOpen}
         />
       )}
